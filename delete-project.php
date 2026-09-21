@@ -1,18 +1,24 @@
 <?php
 require __DIR__ . '/includes/db.php';
 require __DIR__ . '/classes/project.php';
+
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+
+// Verwijderen is alleen beschikbaar voor ingelogde gebruikers.
 if (!isset($_SESSION['user_id'])) {
     header('Location: login.php');
     exit;
 }
 $id = $_GET['id'] ?? null;
+
 if (!$id) {
     header('Location: dashboard.php');
     exit;
 }
+
+// Project::delete controleert ook of het project van deze gebruiker is.
 if (Project::delete($conn, $id, $_SESSION['user_id'])) {
     header('Location: dashboard.php');
     exit;

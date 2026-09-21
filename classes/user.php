@@ -28,7 +28,9 @@ class User {
     public function setRole($role) {
         $this->role = $role;
     }
+
     public function register(PDO $conn) {
+        // Controleer eerst of het e-mailadres al in gebruik is.
         $stmt = $conn->prepare("SELECT user_id FROM users WHERE email = ?");
         $stmt->execute([$this->email]);
         if ($stmt->rowCount() > 0) {
@@ -42,10 +44,13 @@ class User {
             $this->role
         ]);
     }
+
     public static function login(PDO $conn, $email, $password) {
         $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
         $stmt->execute([$email]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // Geef alleen een gebruiker terug wanneer het wachtwoord geldig is.
         if ($user && password_verify($password, $user['password'])) {
             return $user;
         }

@@ -2,23 +2,23 @@
 session_start();
 require __DIR__ . '/includes/db.php';
 require __DIR__ . '/classes/user.php';
-if (isset($_POST['login'])) {
 
-    $email = trim($_POST['email']);
-    $password = $_POST['password'];
+if (isset($_POST['login'])) {
+    $email = trim($_POST['email'] ?? '');
+    $password = $_POST['password'] ?? '';
 
     $user = User::login($conn, $email, $password);
 
     if ($user) {
-
+        // Bewaar alleen de gegevens die de ingelogde pagina's nodig hebben.
         $_SESSION['user_id'] = $user['user_id'];
         $_SESSION['username'] = $user['username'];
 
-        header("Location: dashboard.php");
+        header('Location: dashboard.php');
         exit;
-    } else {
-        $error = "Onjuiste gegevens";
     }
+
+    $error = 'Onjuiste gegevens';
 }
 ?>
 <?php include __DIR__ . '/includes/header.php'; ?>

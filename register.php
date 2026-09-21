@@ -1,18 +1,20 @@
 <?php
 require __DIR__ . '/includes/db.php';
 require __DIR__ . '/classes/user.php';
-$error = "";
+$error = '';
+
 if (isset($_POST['register'])) {
-    $username = trim($_POST['username']);
-    $email = trim($_POST['email']);
-    $password = $_POST['password'];
+    $username = trim($_POST['username'] ?? '');
+    $email = trim($_POST['email'] ?? '');
+    $password = $_POST['password'] ?? '';
 
     $user = new User($username, $email, $password);
     if ($user->register($conn)) {
-        header("Location: login.php");
+        header('Location: login.php');
         exit;
     }
-    $error = "Email bestaat al!";
+
+    $error = 'Email bestaat al!';
 }
 ?>
 <?php include __DIR__ . '/includes/header.php'; ?>

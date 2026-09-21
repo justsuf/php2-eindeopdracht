@@ -1,5 +1,6 @@
 <?php
 if (session_status() === PHP_SESSION_NONE) {
+    // Start de sessie één keer, zodat de navigatie de loginstatus kan lezen.
     session_start();
 }
 ?>
@@ -7,23 +8,29 @@ if (session_status() === PHP_SESSION_NONE) {
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
-    <title>Portfolio Website</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mijn Portfolio</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/style.css">
 </head>
-<body>
-<nav class="navbar navbar-dark bg-dark">
+<body class="site-body">
+<nav class="navbar navbar-expand-lg site-nav">
     <div class="container">
-        <a class="navbar-brand" href="index.php">Mijn Portfolio</a>
-        <div>
-            <a href="index.php" class="btn btn-outline-light me-2">Home</a>
+        <a class="navbar-brand site-brand" href="index.php">
+            <span class="brand-mark">MP</span>
+            <span>Mijn Portfolio</span>
+        </a>
+        <div class="nav-links">
+            <a href="index.php" class="nav-link">Home</a>
+            <!-- Toon andere navigatieopties voor ingelogde gebruikers. -->
             <?php if (isset($_SESSION['user_id'])): ?>
-                <a href="dashboard.php" class="btn btn-outline-light me-2">Dashboard</a>
-                <a href="logout.php" class="btn btn-light">Uitloggen</a>
+                <a href="dashboard.php" class="nav-link">Dashboard</a>
+                <a href="logout.php" class="btn btn-nav">Uitloggen</a>
             <?php else: ?>
-                <a href="login.php" class="btn btn-outline-light me-2">Login</a>
-                <a href="register.php" class="btn btn-light">Registreren</a>
+                <a href="login.php" class="nav-link">Login</a>
+                <a href="register.php" class="btn btn-nav">Registreren</a>
             <?php endif; ?>
         </div>
     </div>
 </nav>
-<div class="container mt-4">
+<main class="container page-content">

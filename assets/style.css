@@ -1,17 +1,230 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+:root {
+    --ink: #26313d;
+    --muted: #66717f;
+    --navy: #203247;
+    --coral: #d86650;
+    --paper: #f8fafb;
+    --line: #e3e8ed;
+    --white: #ffffff;
+}
+
+* {
+    box-sizing: border-box;
+}
+
 body {
-    background-color: #f5f5f5;
-    font-family: Arial, sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+}
+
+.site-body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.site-nav {
+    background: var(--white);
+    border-bottom: 1px solid var(--line);
+    padding: .85rem 0;
+}
+
+.site-brand {
+    color: var(--navy);
+    display: inline-flex;
+    align-items: center;
+    gap: .7rem;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+}
+
+.site-brand:hover {
+    color: var(--navy);
+}
+
+.brand-mark {
+    width: 2.1rem;
+    height: 2.1rem;
+    display: grid;
+    place-items: center;
+    border-radius: 6px;
+    background: var(--coral);
+    color: var(--white);
+    font-size: .75rem;
+    letter-spacing: .04em;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: .35rem;
+}
+
+.nav-link {
+    color: var(--muted);
+    padding: .55rem .8rem;
+}
+
+.nav-link:hover {
+    color: var(--navy);
+}
+
+.btn-nav,
+.btn-primary,
+.btn-success,
+.btn-dark {
+    background: var(--navy);
+    border-color: var(--navy);
+    color: var(--white);
+}
+
+.btn-nav:hover,
+.btn-primary:hover,
+.btn-success:hover,
+.btn-dark:hover {
+    background: #314962;
+    border-color: #314962;
+    color: var(--white);
+}
+
+.page-content {
+    flex: 1;
+    width: 100%;
+    padding-top: 3rem;
+    padding-bottom: 3.5rem;
+}
+
+h1,
+h2,
+h3 {
+    color: var(--navy);
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+}
+
+h1 {
+    margin-bottom: 1.4rem;
+    font-size: clamp(2rem, 4vw, 3.25rem);
 }
 
 .card {
-    border-radius: 12px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--white);
+    box-shadow: 0 3px 12px rgba(32, 50, 71, .05);
+}
+
+.row > [class*='col-'] {
+    display: flex;
+}
+
+.row .card {
+    width: 100%;
 }
 
 .project-card {
-    transition: 0.3s;
+    display: flex;
+    flex-direction: column;
+    gap: .45rem;
 }
 
-.project-card:hover {
-    transform: scale(1.02);
+.project-card h3 {
+    margin: 0;
+    font-size: 1.55rem;
+}
+
+.project-description {
+    min-height: 3rem;
+    margin: 0;
+    color: var(--ink);
+}
+
+.project-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .25rem .6rem;
+    margin: auto 0 .7rem;
+    color: var(--muted);
+    font-size: .9rem;
+}
+
+.project-meta span + span::before {
+    content: '\00b7';
+    margin-right: .6rem;
+}
+
+.project-card,
+.row .card {
+    transition: border-color .2s ease, box-shadow .2s ease;
+}
+
+.project-card:hover,
+.row .card:hover {
+    box-shadow: 0 6px 16px rgba(32, 50, 71, .08);
+    border-color: #cbd5df;
+}
+
+.form-control {
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: .75rem .9rem;
+}
+
+.form-control:focus {
+    border-color: var(--coral);
+    box-shadow: 0 0 0 .2rem rgba(229, 107, 86, .16);
+}
+
+.table {
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--white);
+    vertical-align: middle;
+}
+
+.table > :not(caption) > * > * {
+    padding: 1rem;
+    border-bottom-color: var(--line);
+}
+
+.table thead th,
+.table th {
+    color: var(--navy);
+    font-family: 'Space Grotesk', sans-serif;
+}
+
+.site-footer {
+    padding: 1.5rem 0;
+    background: var(--navy);
+    color: rgba(255, 253, 249, .72);
+    text-align: center;
+}
+
+.site-footer p {
+    margin: 0;
+}
+
+@media (max-width: 576px) {
+    .site-nav .container,
+    .nav-links {
+        align-items: flex-start;
+    }
+
+    .site-nav .container {
+        flex-direction: column;
+        gap: .8rem;
+    }
+
+    .nav-links {
+        flex-wrap: wrap;
+    }
+
+    .page-content {
+        padding-top: 2.5rem;
+    }
 }
