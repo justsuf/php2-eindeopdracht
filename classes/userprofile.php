@@ -1,30 +1,28 @@
 <?php
 class UserProfile {
+    private $userId;
     private $bio;
     private $profileImage;
     private $website;
-    public function __construct($bio, $profileImage, $website) {
+    private $db;
+
+    public function __construct(PDO $db) {
+        $this->db = $db;
+    }
+
+    public function createProfile($userId, $bio, $profileImage, $website) {
+        $this->userId = $userId;
         $this->bio = $bio;
         $this->profileImage = $profileImage;
         $this->website = $website;
-    }
-    public function getBio() {
-        return $this->bio;
-    }
-    public function setBio($bio) {
-        $this->bio = $bio;
-    }
-    public function getProfileImage() {
-        return $this->profileImage;
-    }
-    public function setProfileImage($profileImage) {
-        $this->profileImage = $profileImage;
-    }
-    public function getWebsite() {
-        return $this->website;
-    }
-    public function setWebsite($website) {
-        $this->website = $website;
+        $stmt = $this->db->prepare(
+            "INSERT INTO user_profiles (user_id, bio, profileImage, website) VALUES (?, ?, ?, ?)"
+        );
+        return $stmt->execute([
+            $this->userId,
+            $this->bio,
+            $this->profileImage,
+            $this->website
+        ]);
     }
 }
-?>
